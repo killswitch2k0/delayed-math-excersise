@@ -9,6 +9,67 @@
 </head>
 <body>
     
-    <script></script>
+    <script>
+
+        function add (a,b) {
+            return a + b;
+
+        }
+
+        function subtract (a,b) {
+            if (a<b) {
+                return "result must be positive..."
+            }else {
+                return a-b;
+            }
+            
+        }
+
+        function multiply (a,b) {
+            return a*b;
+        }
+
+        function devide (a,b) {
+            if(b===0) {
+                return "can't devide by zero stupid..."
+        
+            }else{
+                return a/b;
+            }
+            
+        }
+        
+        //this is a callback func that performs the math operations from above funcs
+        function math (fn,a,b,callback) {
+            setTimeout(() => { //set timeout for delay
+                let res= fn(a,b);
+                console.log(`${a} ${fn.name} ${b} = ${res}`);
+
+            //verify result is error and stop the code
+            if (typeof res === 'string') { //since errors are strings
+                throw Error(res)
+            }else {
+                callback(res); //instead of returning the result we put it in callback
+            }
+            
+            }, 1000);
+            
+        }
+
+        //Using callback func to run all ops
+        math(add,5,9,(res) => {
+            math(subtract,res,11,(res)=> {
+                math(multiply,res,5, (res)=> {
+                    math(devide,res,2, (res)=> {
+                        console.log(`done`)
+                    });
+                });
+            });
+        });
+
+
+       
+
+    </script>
 </body>
 </html>
